@@ -18,16 +18,16 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+          version: 6.0.2
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
 
       - name: 🔬 Lint
-        run: yarn lint:strict
+        run: pnpm lint
 
   typecheck:
     name: ʦ TypeScript
@@ -36,16 +36,16 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+          version: 6.0.2
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
 
       - name: 🔎 Type check
-        run: yarn typecheck
+        run: pnpm typecheck
 
   prettier:
     name: 💅 Prettier
@@ -54,16 +54,16 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+          version: 6.0.2
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
 
       - name: 💅 Prettier check
-        run: yarn format:check
+        run: pnpm format:check
 
   test:
     name: 🃏 Test
@@ -72,13 +72,13 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: 16
-
-      - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
+          version: 6.0.2
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, gulp, prettier, typescript]
 
       - name: 🃏 Run jest
-        run: yarn test
+        run: pnpm test

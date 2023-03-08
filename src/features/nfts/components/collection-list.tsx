@@ -1,3 +1,4 @@
+import { EvmNft } from '@moralisweb3/common-evm-utils';
 import {
   createColumnHelper,
   flexRender,
@@ -7,15 +8,15 @@ import {
 import { useRouter } from 'next/router';
 
 import { useCollections } from '@/features/nfts/hooks/useCollections';
+const columnHelper = createColumnHelper<EvmNft>();
 
-import { NFTCollection } from '../api/getAll';
-const columnHelper = createColumnHelper<NFTCollection>();
 const columns = [
+  // @ts-ignore
   columnHelper.accessor('name', {
     cell: (info) => info.getValue(),
     header: 'Name',
   }),
-  columnHelper.accessor('token_address', {
+  columnHelper.accessor('tokenAddress', {
     cell: (info) => info.getValue(),
     header: 'Token Address',
   }),
@@ -23,7 +24,7 @@ const columns = [
     cell: (info) => info.getValue(),
     header: 'Symbol',
   }),
-  columnHelper.accessor('contract_type', {
+  columnHelper.accessor('contractType', {
     cell: (info) => info.getValue(),
     header: 'Contract type',
   }),
@@ -37,7 +38,7 @@ export function CollectionList() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const goTo = (token_address: NFTCollection['token_address']) => {
+  const goTo = (token_address: EvmNft['tokenAddress']) => {
     router.push(`/collection/${token_address}`);
   };
 
@@ -63,7 +64,7 @@ export function CollectionList() {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <tr key={row.id} onClick={() => goTo(row.original.token_address)}>
+          <tr key={row.id} onClick={() => goTo(row.original.tokenAddress)}>
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
