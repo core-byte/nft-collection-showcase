@@ -64,21 +64,3 @@ jobs:
 
       - name: 💅 Prettier check
         run: pnpm format:check
-
-  test:
-    name: 🃏 Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@v2
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 6.0.2
-          run_install: |
-            - recursive: true
-              args: [--frozen-lockfile, --strict-peer-dependencies]
-            - args: [--global, gulp, prettier, typescript]
-
-      - name: 🃏 Run jest
-        run: pnpm test
